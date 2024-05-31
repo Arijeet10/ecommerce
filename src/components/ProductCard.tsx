@@ -41,7 +41,7 @@ const ProductCard = ({
 
   return (
     <>
-      <div className="max-w-[90%] w-[100vw] sm:w-[40vw] md:w-[25vw]  lg:w-[20vw] h-[50vh] bg-[#F5F5F5] shadow-sm rounded-md">
+      <div className="max-w-[90%] sm:max-w-auto w-[100vw] sm:w-[40vw] md:w-[25vw]  lg:w-[20vw] h-[50vh] bg-[#F5F5F5] shadow-md rounded-md">
         <div
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
@@ -69,7 +69,7 @@ const ProductCard = ({
               onClick={() => handleWishlistClick()}
               className="w-8 h-8 rounded-full bg-[#FFFFFF] flex items-center justify-center cursor-pointer"
             >
-              {wishlistItems.includes(product) ? (
+              {wishlistItems.find(wishlistItem=>wishlistItem.id==product.id) ? (
                 <>
                   <FaHeart className="w-5 h-5 text-[#DB4444]" />
                 </>

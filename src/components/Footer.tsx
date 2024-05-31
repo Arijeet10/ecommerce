@@ -38,7 +38,7 @@ const Footer = () => {
                   Electronics Complex, Bidhannagar Kolkata, Kolkata - 700 091
                 </div>
                 <div>exclusive@gmail.com</div>
-                <div>+88015-88888-9999</div>
+                <div>+91854-85818-9791</div>
               </div>
             </div>
             <div className="flex flex-col gap-2 sm:text-sm md:text-base text-xs">

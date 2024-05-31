@@ -23,7 +23,7 @@ const BestSellingProducts=()=>{
     const fetchBestSellingProducts = async () => {
         try {
           const data = await getApiData(`${process.env.NEXT_PUBLIC_FAKE_STORE_API}?sort=desc`);
-          console.log(data);
+          //console.log(data);
           setBestSellingProducts(data);
         } catch (error) {
           console.log(error);

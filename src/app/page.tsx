@@ -1,9 +1,11 @@
-import HeroSection from "@/components/HeroSection";
+import HeroSection from "@/components/HeroSection/HeroSection";
 import CategoriesSideMenus from "@/components/Categories/CategoriesSideMenus";
 import FlashSales from "@/components/Flash Sales/FlashSales";
 import CategoriesSection from "@/components/Categories/CategoriesSection";
 import BestSellingProductsSection from "@/components/Best Selling/BestSellingProductsSection";
 import ProductBanner from "@/components/ProductBanner";
+import { services } from "@/utils/constants";
+import ServiceCard from "@/components/ServiceCard";
 
 const Home = () => {
   return (
@@ -29,6 +31,11 @@ const Home = () => {
         <div className="py-4">
           <ProductBanner />
         </div>
+        <div className="py-4 flex flex-col sm:flex-row items-center sm:justify-between gap-4">
+            {services.map((data,index)=>{
+                return(<ServiceCard key={index} index={index} service={data} />)
+            })}
+          </div>
       </div>
     </>
   );

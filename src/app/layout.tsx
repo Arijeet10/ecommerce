@@ -6,6 +6,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CartContextProvider from "@/context/CartContextProvider";
 import WishlistContextProvider from "@/context/WishlistContextProvider";
+import AuthProvider from "@/context/AuthProvider";
+import UserContextProvider from "@/context/UserContextProvider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -25,15 +27,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.className} h-full w-full`}>
-      <WishlistContextProvider>
-        <Header />
-        <CartContextProvider>
-          <Navbar />
-          {children}
-        </CartContextProvider>
-        <Footer />
+        <WishlistContextProvider>
+          <Header />
+          <CartContextProvider>
+            <AuthProvider>
+              <UserContextProvider>
+                <Navbar />
+                {children}
+              </UserContextProvider>
+            </AuthProvider>
+          </CartContextProvider>
+          <Footer />
         </WishlistContextProvider>
-
       </body>
     </html>
   );

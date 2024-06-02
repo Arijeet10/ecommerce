@@ -1,23 +1,44 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FiSearch } from "react-icons/fi";
-import { FiHeart } from "react-icons/fi";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { CgClose } from "react-icons/cg";
 import { CartContext } from "@/context/CartContextProvider";
-import { CartProductTypes, ProductTypes } from "@/types/types";
 import CartIcon from "./ui/CartIcon";
 import WishlistIcon from "./ui/WishlistIcon";
 import { WishlistContext } from "@/context/WishlistContextProvider";
+import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { FiUser } from "react-icons/fi";
+import Image from "next/image";
+import ProfileDropdownOptions from "./ProfileDropdownOptions";
+import { UserContext } from "@/context/UserContextProvider";
 
 const Navbar = () => {
-  const router = useRouter();
+  const { data, status } = useSession();
 
   const [sidebar, setSidebar] = useState(false);
-  const {cartItems}=useContext(CartContext);
-  const {wishlistItems}=useContext(WishlistContext);
+  const { userData,fetchUserData } = useContext(UserContext);
+  const { cartItems } = useContext(CartContext);
+  const { wishlistItems } = useContext(WishlistContext);
+
+  const [profileDropdown, setProfileDropdown] = useState(false);
+
+  const closeProfileDropdown = () => {
+    setProfileDropdown(false);
+  };
+
+  const handleProfileDropdown = () => {
+    if (status == "authenticated") {
+      setProfileDropdown(!profileDropdown);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserData();
+  }, [])
+  
 
   return (
     <>
@@ -44,10 +65,10 @@ const Navbar = () => {
                 />
               </section>
               <section>
-                <div>Home</div>
-                <div>About</div>
-                <div>Contact</div>
-                <div>Signup</div>
+                <Link href="/">Home</Link>
+                <Link href="/about">About</Link>
+                <Link href="/contact">Contact</Link>
+                <Link href="/signup">Signup</Link>
               </section>
               <section>
                 <div>Search</div>
@@ -61,33 +82,35 @@ const Navbar = () => {
 
           {/* Navigation Section */}
           <nav className="hidden sm:flex items-center gap-8  font-medium">
-            <button
-              onClick={() => router.push("/")}
+            <Link
+              href="/"
               className="border-b border-transparent hover:border-slate-500"
             >
               Home
-            </button>
-            <button
-              onClick={() => router.push("/contact")}
+            </Link>
+            <Link
+              href="/contact"
               className="border-b border-transparent hover:border-slate-500"
             >
               Contact
-            </button>
-            <button
-              onClick={() => router.push("/about")}
+            </Link>
+            <Link
+              href="/about"
               className="border-b border-transparent hover:border-slate-500"
             >
               About
-            </button>
-            <button
-              onClick={() => router.push("/signup")}
-              className="border-b border-transparent hover:border-slate-500"
+            </Link>
+            <Link
+              href="/signup"
+              className={`border-b border-transparent hover:border-slate-500 ${
+                status == "authenticated" ? "hidden" : "block"
+              }`}
             >
               Sign Up
-            </button>
+            </Link>
           </nav>
         </section>
-        <section className="hidden sm:flex items-center justify-end gap-4">
+        <section className="hidden sm:relative sm:flex items-center justify-end gap-4">
           <div className="flex items-center justify-between rounded-md p-2 bg-[#F5F5F5] ">
             <input
               type="text"
@@ -97,13 +120,50 @@ const Navbar = () => {
             <FiSearch className="w-7 h-7" />
           </div>
           <div className="flex items-center gap-4">
-            <div onClick={()=>router.push("/wishlist")} className="flex items-center justify-center cursor-pointer">
-              <WishlistIcon count={wishlistItems?.length} />
-            </div>
-            <div onClick={()=>router.push("/cart")} className="cursor-pointer">
-              <CartIcon count={cartItems?.length} />
-            </div>
+            <Link
+              href="/wishlist"
+              className="flex items-center justify-center cursor-pointer"
+            >
+              <WishlistIcon
+                count={
+                  status == "authenticated"
+                    ? userData.wishlist.length
+                    : wishlistItems?.length
+                }
+              />
+            </Link>
+            <Link href="/cart" className="cursor-pointer">
+              <CartIcon
+                count={
+                  status == "authenticated"
+                    ? userData.cart.length
+                    : cartItems?.length
+                }
+              />
+            </Link>
+            {status == "authenticated" && (
+              <div onClick={() => handleProfileDropdown()}>
+                {data?.user?.image ? (
+                  <Image
+                    src={data.user.image}
+                    alt=""
+                    width={100}
+                    height={100}
+                    className="rounded-full sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-10 lg:h-10"
+                  />
+                ) : (
+                  <div className="bg-red flex items-center justify-center rounded-full text-[#FAFAFA] sm:p-2 lg:p-1">
+                    <FiUser className=" sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-7 lg:h-7" />
+                  </div>
+                )}
+              </div>
+            )}
           </div>
+          {status == "authenticated" && profileDropdown && (
+            <ProfileDropdownOptions
+              closeProfileDropdown={closeProfileDropdown}
+            />
+          )}
         </section>
       </nav>
     </>

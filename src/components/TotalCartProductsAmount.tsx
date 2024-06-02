@@ -3,18 +3,31 @@
 import { useContext } from "react";
 import Divider from "./ui/Divider";
 import { CartContext } from "@/context/CartContextProvider";
+import { UserContext } from "@/context/UserContextProvider";
+import { useSession } from "next-auth/react";
 
 const TotalCartProductsAmount = () => {
 
   
+  const { status } = useSession();
+  const { userData } = useContext(UserContext);
   const { cartItems } = useContext(CartContext);
-
-  const subTotalAmt =
-    (cartItems?.length > 0 &&
-      cartItems.reduce((acc, next) => {
-        return acc + next.product.price * next.productCount;
-      }, 0)) ||
-    0;
+  let subTotalAmt;
+  if (status == "authenticated") {
+    subTotalAmt =
+      (userData.cart?.length > 0 &&
+        userData.cart.reduce((acc, next) => {
+          return acc + next.product.price * next.productCount;
+        }, 0)) ||
+      0;
+  } else {
+    subTotalAmt =
+      (cartItems?.length > 0 &&
+        cartItems.reduce((acc, next) => {
+          return acc + next.product.price * next.productCount;
+        }, 0)) ||
+      0;
+  }
 
   return (
     <>

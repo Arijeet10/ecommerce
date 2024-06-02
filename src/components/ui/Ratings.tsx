@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const Ratings = ({ rating }: { rating: number }) => {
  
   const fullStars = Math.floor(rating);
@@ -11,17 +13,17 @@ const Ratings = ({ rating }: { rating: number }) => {
             if (index < fullStars) {
               // show full star
               return (
-                <img key={index} src="/fullstar.svg" alt="" className="" />
+                <Image key={index} src="/fullstar.svg" alt="" width={20} height={20} className="" />
               );
             } else if (index === fullStars && hasHalfStar) {
               // show half star
               return (
-                <img key={index} src="/halfstar.svg" alt="" className="" />
+                <Image key={index} src="/halfstar.svg" alt="" width={20} height={20} className="" />
               );
             } else {
               // show empty star
               return (
-                <img key={index} src="/emptystar.svg" alt="" className="" />
+                <Image key={index} src="/emptystar.svg" alt="" width={20} height={20} className="" />
               );
             }
           })}

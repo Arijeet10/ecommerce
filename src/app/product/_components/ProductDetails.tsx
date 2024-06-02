@@ -1,5 +1,5 @@
 import { ProductTypes } from "@/types/types";
-import DeliveryInfo from "@/app/(product)/_components/DeliveryInfo";
+import DeliveryInfo from "@/app/product/_components/DeliveryInfo";
 import Button from "@/components/ui/Button";
 import ColorCircles from "@/components/ui/ColorCircles";
 import Divider from "@/components/ui/Divider";

@@ -18,7 +18,7 @@ const HeroProduct = ({ product,activeProduct }:{product:ProductTypes,activeProdu
           <div className="text-xs sm:text-sm">{product.category}</div>
           <div className="text-lg sm:text-xl md:text-3xl lg:text-4xl">{product.title}</div>
           <div className="flex items-center gap-1">
-            <div onClick={()=>router.push(`${product.id}`)} className="underline cursor-pointer text-lg">Shop Now</div>
+            <div onClick={()=>router.push(`/product/${product.id}`)} className="underline cursor-pointer text-lg">Shop Now</div>
             <FaArrowRight />
           </div>
         </div>

@@ -84,7 +84,7 @@ const ProductCard = ({
           className=" relative rounded-md w-full h-[70%]"
         >
           <div
-            onClick={() => router.push(`/${product.id}`)}
+            onClick={() => router.push(`/product/${product.id}`)}
             className="w-full h-full rounded-md cursor-pointer"
           >
             <Image
@@ -198,7 +198,7 @@ const ProductCard = ({
         <div className="w-full h-[30%] flex items-end justify-start">
           <div className="p-2">
             <div
-              onClick={() => router.push(`/${product.id}`)}
+              onClick={() => router.push(`/product/${product.id}`)}
               className="w-[16vw] overflow-hidden text-ellipsis text-nowrap font-medium cursor-pointer"
             >
               {product.title}

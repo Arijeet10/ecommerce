@@ -1,7 +1,10 @@
 "use client";
 
 import { CartContext } from "@/context/CartContextProvider";
+import { UserContext } from "@/context/UserContextProvider";
 import { CartProductTypes } from "@/types/types";
+import { addToCartApiCall, removeFromCartApiCall } from "@/utils/request";
+import { useSession } from "next-auth/react";
 import { useCallback, useContext } from "react";
 import { FaAngleDown } from "react-icons/fa";
 import { FaAngleUp } from "react-icons/fa";
@@ -11,46 +14,60 @@ const ProductQuantityCounter = ({
 }: {
   productData: CartProductTypes;
 }) => {
+
+  const {status}=useSession()
+  const {userData,fetchUserData}=useContext(UserContext)
   const { cartItems, setCartItems } = useContext(CartContext);
 
-  const handleProductCountDecrease = () => {
-    setCartItems((prevItems) => {
-      const existingProductIndex = prevItems.findIndex(
-        (item) => item.product.id === productData.product.id
-      );
-      if (existingProductIndex >= 0) {
-        const updatedItems = [...prevItems];
-        const updatedProduct = {...updatedItems[existingProductIndex]};
-        if (updatedProduct.productCount > 1) {
-          updatedProduct.productCount = updatedProduct.productCount - 1;
-          updatedItems[existingProductIndex] = updatedProduct;
-        } else {
-          updatedItems.splice(existingProductIndex, 1);
+  const handleProductCountDecrease = async() => {
+    if(status=="authenticated"){
+      await removeFromCartApiCall(productData.product)
+      fetchUserData();
+    }else{
+      setCartItems((prevItems) => {
+        const existingProductIndex = prevItems.findIndex(
+          (item) => item.product.id === productData.product.id
+        );
+        if (existingProductIndex >= 0) {
+          const updatedItems = [...prevItems];
+          const updatedProduct = {...updatedItems[existingProductIndex]};
+          if (updatedProduct.productCount > 1) {
+            updatedProduct.productCount = updatedProduct.productCount - 1;
+            updatedItems[existingProductIndex] = updatedProduct;
+          } else {
+            updatedItems.splice(existingProductIndex, 1);
+          }
+          return updatedItems;
+        }else{
+          return prevItems;
         }
-        return updatedItems;
-      }else{
-        return prevItems;
-      }
-    });
+      });
+    }
+
   };
 
-  const handleProductCountIncrease = () => {
-    setCartItems((prevItems) => {
-      const existingProductIndex = prevItems.findIndex(
-        (item) => item.product.id === productData.product.id
-      );
-
-      if (existingProductIndex >= 0) {
-        const updatedItems = [...prevItems];
-        const updatedProduct = { ...updatedItems[existingProductIndex] };
-        updatedProduct.productCount += 1;
-        updatedItems[existingProductIndex] = updatedProduct;
-        return updatedItems;
-      } else {
-        const newProduct = { product: productData.product, productCount: 1 };
-        return [...prevItems, newProduct];
-      }
-    });
+  const handleProductCountIncrease = async() => {
+    if(status=="authenticated"){
+      await addToCartApiCall(productData.product)
+      fetchUserData()
+    }else{
+      setCartItems((prevItems) => {
+        const existingProductIndex = prevItems.findIndex(
+          (item) => item.product.id === productData.product.id
+        );
+  
+        if (existingProductIndex >= 0) {
+          const updatedItems = [...prevItems];
+          const updatedProduct = { ...updatedItems[existingProductIndex] };
+          updatedProduct.productCount += 1;
+          updatedItems[existingProductIndex] = updatedProduct;
+          return updatedItems;
+        } else {
+          const newProduct = { product: productData.product, productCount: 1 };
+          return [...prevItems, newProduct];
+        }
+      });
+    }
   };
 
   return (

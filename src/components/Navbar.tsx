@@ -14,6 +14,7 @@ import { FiUser } from "react-icons/fi";
 import Image from "next/image";
 import ProfileDropdownOptions from "./ProfileDropdownOptions";
 import { UserContext } from "@/context/UserContextProvider";
+import Search from "./Search";
 
 const Navbar = () => {
   const { data, status } = useSession();
@@ -111,13 +112,8 @@ const Navbar = () => {
           </nav>
         </section>
         <section className="hidden sm:relative sm:flex items-center justify-end gap-4">
-          <div className="flex items-center justify-between rounded-md p-2 bg-[#F5F5F5] ">
-            <input
-              type="text"
-              placeholder=""
-              className="text-[#7D8184FF] w-full focus:outline-none bg-transparent"
-            />
-            <FiSearch className="w-7 h-7" />
+          <div>
+            <Search />
           </div>
           <div className="flex items-center gap-4">
             <Link

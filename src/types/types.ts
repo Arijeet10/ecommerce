@@ -28,3 +28,14 @@ export interface UserDataTypes{
     wishlist:ProductTypes[];
     cart:CartProductTypes[];
 }
+
+export interface CheckoutFormTypes{
+    name:string;
+    email:string;
+    companyName:string;
+    streetAddress:string;
+    apartment:string;
+    city:string;
+    phoneNumber:string;
+    paymentOption:string;
+}

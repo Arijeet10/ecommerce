@@ -2,7 +2,7 @@
 
 import ApplyCoupon from "./_components/ApplyCoupon";
 import CartTotal from "./_components/CartTotal";
-import ProductCartList from "@/components/ProductCartList";
+import ProductCartList from "./_components/ProductCartList";
 import Button from "@/components/ui/Button";
 import { CartContext } from "@/context/CartContextProvider";
 import { useRouter } from "next/navigation";
@@ -24,7 +24,7 @@ const Cart = () => {
         <div className="flex flex-col gap-20">
           <div className="flex flex-col gap-6">
             <div className="border shadow-sm flex flex-col gap-10">
-              <div className="py-2 grid grid-cols-4 gap-2">
+              <div className="py-2 grid grid-cols-4 gap-2 text-xs sm:text-base font-medium">
                 <div className=" flex items-center justify-center">
                   <div>Product</div>
                 </div>
@@ -61,8 +61,8 @@ const Cart = () => {
                 
               </div>
             </div>
-            <div className="flex items-center justify-between">
-              <div onClick={() => router.push("/")}>
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-0">
+              <div onClick={() => router.push("/")} className="w-full sm:w-auto">
                 <Button
                   color="#FAFAFA"
                   text="Return To Shop"
@@ -70,7 +70,7 @@ const Cart = () => {
                   textColor="#000000"
                 />
               </div>
-              <div onClick={() => router.push("/wishlist")}>
+              <div onClick={() => router.push("/wishlist")} className="w-full sm:w-auto">
                 <Button
                   color="#FAFAFA"
                   text="Update Cart"
@@ -81,7 +81,7 @@ const Cart = () => {
             </div>
           </div>
           <div
-            className={`flex items-start justify-between ${
+            className={`flex flex-col sm:flex-row items-start justify-between gap-4 sm:gap-0 ${
               status=="authenticated"?userData.cart.length==0&&"hidden":
               cartItems.length == 0 && "hidden"
             }`}
@@ -89,7 +89,7 @@ const Cart = () => {
             <div>
               <ApplyCoupon />
             </div>
-            <div className="w-[30vw]">
+            <div className="w-full sm:w-[30vw]">
               <CartTotal />
             </div>
           </div>

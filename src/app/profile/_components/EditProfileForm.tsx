@@ -6,12 +6,12 @@ const EditProfileForm = () => {
   return (
     <>
       <div className="p-2 flex flex-col gap-4 shadow-md rounded-md">
-        <div className="text-red font-medium text-2xl sm:text-lg md:text-2xl lg:text-3xl">
+        <div className="text-red font-medium text-base sm:text-sm md:text-2xl lg:text-3xl">
           Edit Your Profile
         </div>
         <form
           onSubmit={(e) => e.preventDefault()}
-          className="flex flex-col gap-4"
+          className="flex flex-col gap-4 text-sm sm:text-base"
         >
           <div className="flex flex-col gap-2">
             <div>Full Name</div>
@@ -60,7 +60,7 @@ const EditProfileForm = () => {
             </div>
           </div>
           <div className="flex items-center justify-end">
-            <div className="flex items-center gap-8">
+            <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8">
               <div>Cancel</div>
               <div>
                 <Button text="Save Changes" color="#DB4444" />

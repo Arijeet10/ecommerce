@@ -33,14 +33,18 @@ export async function POST(req: NextRequest) {
     );
     const newCart = (() => {
       if (existingCartIndex >= 0) {
-        const updatedItems = [...user.cart];
+        const updatedItems = [...(user.cart)];
+        //console.log("UpdatedItem:",updatedItems)
         const updatedProduct = { ...updatedItems[existingCartIndex] };
+        //console.log("UpdatedProduct",updatedProduct)
         updatedProduct.productCount += 1;
         updatedItems[existingCartIndex] = updatedProduct;
-        return updatedProduct;
+        //console.log("Updated Items2",updatedItems)
+        //console.log("Updated Product2",updatedProduct)
+        return updatedItems;
       } else {
         const newProduct = { product: product, productCount: 1 };
-        return [...user.cart, newProduct];
+        return [...(user.cart), newProduct];
       }
     })();
     //console.log("New Cart",newCart)
@@ -54,7 +58,7 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    console.log(newCart)
+    //console.log("New Cart",newCart)
 
     return NextResponse.json(
       { message: "Product Added to Cart!", newCart },

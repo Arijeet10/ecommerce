@@ -23,24 +23,24 @@ const ProfileDropdownOptions = ({closeProfileDropdown}:{closeProfileDropdown:Rea
             </div>
             <div>Manage My Account</div>
           </button>
-          <div className="flex items-center justify-start gap-2">
+          <button onClick={()=>{router.push("/profile/orders");closeProfileDropdown();}} className="flex items-center justify-start gap-2">
             <div>
               <FiShoppingBag className="sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-7 lg:h-7" />
             </div>
             <div>My Orders</div>
-          </div>
-          <div className="flex items-center justify-start gap-2">
+          </button>
+          <button onClick={()=>{router.push("/profile/cancelled-orders");closeProfileDropdown();}} className="flex items-center justify-start gap-2">
             <div>
               <SlClose className="sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-7 lg:h-7" />
             </div>
             <div>My Cancellations</div>
-          </div>
-          <div className="flex items-center justify-start gap-2">
+          </button>
+          <button onClick={()=>{router.push("/profile/reviews");closeProfileDropdown();}} className="flex items-center justify-start gap-2">
             <div>
               <FaRegStar className="sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-7 lg:h-7" />
             </div>
             <div>My Reviews</div>
-          </div>
+          </button>
           <button onClick={()=>{signOut();closeProfileDropdown()}} className="flex items-center justify-start gap-2">
             <div>
               <SlLogout className="sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-7 lg:h-7" />

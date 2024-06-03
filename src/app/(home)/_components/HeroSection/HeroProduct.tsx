@@ -13,10 +13,10 @@ const HeroProduct = ({ product,activeProduct }:{product:ProductTypes,activeProdu
 
   return (
     <>
-      <div  className={` w-full h-full inset-0 z-10 px-8 py-4  bg-[#000000] text-[#FAFAFA] flex items-center justify-between ${activeProduct==product.id?'absolute':'hidden'}`}>
+      <div  className={` w-full h-full inset-0 z-10 px-2 sm:px-4 md:px-6 lg:px-8 py-4  bg-[#000000] text-[#FAFAFA] flex items-center justify-between ${activeProduct==product.id?'absolute':'hidden'}`}>
         <div className="w-full h-full flex flex-col gap-2 justify-center">
           <div className="text-xs sm:text-sm">{product.category}</div>
-          <div className="text-lg sm:text-xl md:text-3xl lg:text-4xl">{product.title}</div>
+          <div className="text-base sm:text-xl md:text-3xl lg:text-4xl">{product.title}</div>
           <div className="flex items-center gap-1">
             <div onClick={()=>router.push(`/product/${product.id}`)} className="underline cursor-pointer text-lg">Shop Now</div>
             <FaArrowRight />

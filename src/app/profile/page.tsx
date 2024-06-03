@@ -13,11 +13,11 @@ const Profile=()=>{
             <div className="px-4 py-4">
                 <div className="flex items-center justify-between">
                     <div>Breadcrumb</div>
-                    <div className="text-lg sm:text-base md:text-lg lg:text-2xl">
+                    <div className="text-base sm:text-sm md:text-lg lg:text-2xl">
                         Welcome! <span className="text-red">{data?.user?.name}</span>
                     </div>
                 </div>
-                <div className="flex">
+                <div className="flex text-sm sm:text-base">
                     <div className="w-[30%]">
                         <div>
                             <div className="font-medium">Manage My Account</div>

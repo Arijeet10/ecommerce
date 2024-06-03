@@ -6,10 +6,12 @@ import { getDataFromToken } from "@/utils/getDataFromToken";
 export async function GET(req:NextRequest){
     try {
         const data=await getDataFromToken(req)
+        console.log("Token Data:",data)
         if(!data){
             return NextResponse.json({message:"User not Signed in"},{status:404})
         }
         const user=await prisma.ecommerceUser.findUnique({where:{email:data.email as string}})
+        console.log("User:",user)
         if(!user){
             return NextResponse.json({message:"User Account doesn't exist"},{status:404})
         }

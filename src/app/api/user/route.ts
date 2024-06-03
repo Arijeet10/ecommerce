@@ -17,6 +17,7 @@ export async function GET(req:NextRequest){
         }
         return NextResponse.json({message:"User Data fetched successfully",user},{status:201})
     } catch (error) {
+        console.log("User Data Fetch Error:",error)
         return NextResponse.json({message:"User Data Fetch Error:",error},{status:500})
     }
 }

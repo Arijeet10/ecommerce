@@ -1,7 +1,7 @@
 "use client";
 
 import { UserDataTypes } from "@/types/types";
-import { useSession } from "next-auth/react";
+// import { useSession } from "next-auth/react";
 import { ReactNode, createContext, useEffect, useState } from "react";
 
 interface UserContextProps{
@@ -24,7 +24,8 @@ export const UserContext=createContext<UserContextProps>({
 
 const UserContextProvider=({children}:{children:ReactNode})=>{
     
-    const {status}=useSession()
+    // const {status}=useSession()
+
 
     const [userData,setUserData]=useState<UserDataTypes>({
         id:"",
@@ -49,9 +50,8 @@ const UserContextProvider=({children}:{children:ReactNode})=>{
     }
 
     useEffect(() => {
-        if(status=="authenticated"){
-            fetchUserData()
-        }
+        fetchUserData()
+
     }, [])
     
 

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/prisma/client";
 import { getDataFromToken } from "@/utils/getDataFromToken";
+import { ProductTypes } from "@/types/types";
 
 export async function GET(req: NextRequest) {
   try {
@@ -23,7 +24,7 @@ export async function GET(req: NextRequest) {
 
     const newCart=(()=>{
         if(user.wishlist.length>0){
-        const itemsToAddToCart=user.wishlist.map(item=>{
+        const itemsToAddToCart=user.wishlist.map((item:ProductTypes)=>{
             return {product:item,productCount:1}
         })
         return [...user.cart,...itemsToAddToCart]

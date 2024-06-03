@@ -8,10 +8,17 @@ import { SlLogout } from "react-icons/sl";
 import { signOut } from "next-auth/react";
 import { SetStateAction } from "react";
 import { useRouter } from "next/navigation";
+import { logoutUser } from "@/utils/request";
 
 const ProfileDropdownOptions = ({closeProfileDropdown}:{closeProfileDropdown:React.Dispatch<SetStateAction<void>>}) => {
 
   const router=useRouter()
+
+  const handleLogout=async()=>{
+    await logoutUser();
+    signOut();
+    closeProfileDropdown();
+  }
 
   return (
     <>
@@ -41,7 +48,7 @@ const ProfileDropdownOptions = ({closeProfileDropdown}:{closeProfileDropdown:Rea
             </div>
             <div>My Reviews</div>
           </button>
-          <button onClick={()=>{signOut();closeProfileDropdown()}} className="flex items-center justify-start gap-2">
+          <button onClick={()=>handleLogout()} className="flex items-center justify-start gap-2">
             <div>
               <SlLogout className="sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-7 lg:h-7" />
             </div>

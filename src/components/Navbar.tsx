@@ -9,12 +9,14 @@ import CartIcon from "./ui/CartIcon";
 import WishlistIcon from "./ui/WishlistIcon";
 import { WishlistContext } from "@/context/WishlistContextProvider";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { FiUser } from "react-icons/fi";
 import Image from "next/image";
 import ProfileDropdownOptions from "./ProfileDropdownOptions";
 import { UserContext } from "@/context/UserContextProvider";
 import Search from "./Search";
+import { SlLogout } from "react-icons/sl";
+import { logoutUser } from "@/utils/request";
 
 const Navbar = () => {
   const { data, status } = useSession();
@@ -39,6 +41,11 @@ const Navbar = () => {
   useEffect(() => {
     fetchUserData();
   }, []);
+
+  const handleLogout=async()=>{
+    await logoutUser();
+    signOut();
+  }
 
   return (
     <>
@@ -65,11 +72,17 @@ const Navbar = () => {
                 />
               </section>
               <section className="flex flex-col gap-4">
-                <Link onClick={()=>setSidebar(false)} href="/">Home</Link>
-                <Link onClick={()=>setSidebar(false)} href="/about">About</Link>
-                <Link onClick={()=>setSidebar(false)} href="/contact">Contact</Link>
+                <Link onClick={() => setSidebar(false)} href="/">
+                  Home
+                </Link>
+                <Link onClick={() => setSidebar(false)} href="/about">
+                  About
+                </Link>
+                <Link onClick={() => setSidebar(false)} href="/contact">
+                  Contact
+                </Link>
                 <Link
-                  onClick={()=>setSidebar(false)}
+                  onClick={() => setSidebar(false)}
                   href="/signup"
                   className={`${userData.email !== "" ? "hidden" : "block"}`}
                 >
@@ -82,7 +95,7 @@ const Navbar = () => {
                 </div>
                 <div>
                   <Link
-                    onClick={()=>setSidebar(false)}
+                    onClick={() => setSidebar(false)}
                     href="/wishlist"
                     className="flex items-center gap-2 cursor-pointer"
                   >
@@ -99,7 +112,7 @@ const Navbar = () => {
                   </Link>
                 </div>
                 <Link
-                  onClick={()=>setSidebar(false)}
+                  onClick={() => setSidebar(false)}
                   href="/cart"
                   className="flex items-center gap-2 cursor-pointer"
                 >
@@ -115,7 +128,11 @@ const Navbar = () => {
                   <div>Cart</div>
                 </Link>
                 {userData.email !== "" && (
-                  <Link onClick={()=>setSidebar(false)} href="/profile" className="flex items-center gap-2">
+                  <Link
+                    onClick={() => setSidebar(false)}
+                    href="/profile"
+                    className="flex items-center gap-2"
+                  >
                     {data?.user?.image ? (
                       <>
                         <div>
@@ -140,6 +157,17 @@ const Navbar = () => {
                       </>
                     )}
                   </Link>
+                )}
+                {userData.email !== "" && (
+                  <button
+                    onClick={() => handleLogout()}
+                    className="flex items-center gap-2"
+                  >
+                    <div>
+                      <SlLogout className="sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-7 lg:h-7" />
+                    </div>
+                    <div>Logout</div>
+                  </button>
                 )}
               </section>
             </div>

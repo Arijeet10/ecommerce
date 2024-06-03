@@ -137,3 +137,19 @@ export const createOrdersApiCall=async()=>{
     return message;
   }
 }
+
+
+export const logoutUser=async()=>{
+  try {
+    const res=await fetch("/api/auth/logout")
+    const response=await res.json()
+    if(res.ok){
+      console.log(response)
+      return response.message
+    }
+  } catch (error) {
+    console.log(error)
+    const message="Logout Unsuccessfull"
+    return message
+  }
+}

@@ -12,7 +12,6 @@ import { CartContext } from "@/context/CartContextProvider";
 import IncreaseDecreaseProductBuyCountButton from "./ui/IncreaseDecreaseProductBuyCountButton";
 import Image from "next/image";
 import { UserContext } from "@/context/UserContextProvider";
-import { useSession } from "next-auth/react";
 import { addToCartApiCall, wishlistUpdateApiCall } from "@/utils/request";
 
 const ProductCard = ({
@@ -22,8 +21,9 @@ const ProductCard = ({
   product: ProductTypes;
   discount?: number;
 }) => {
+
+  
   const { userData,fetchUserData } = useContext(UserContext);
-  // const { status } = useSession();
   const { wishlistItems, setWishlistItems } = useContext(WishlistContext);
   const { cartItems, setCartItems } = useContext(CartContext);
 

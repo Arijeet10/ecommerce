@@ -1,3 +1,5 @@
+"use client";
+
 import { ProductTypes } from "@/types/types";
 import DeliveryInfo from "@/app/product/_components/DeliveryInfo";
 import Button from "@/components/ui/Button";
@@ -7,6 +9,11 @@ import IncreaseDecreaseProductBuyCountButton from "@/components/ui/IncreaseDecre
 import Ratings from "@/components/ui/Ratings";
 import { FiHeart } from "react-icons/fi";
 import Image from "next/image";
+import { useContext } from "react";
+import { UserContext } from "@/context/UserContextProvider";
+import { CartContext } from "@/context/CartContextProvider";
+import { addToCartApiCall } from "@/utils/request";
+import { useRouter } from "next/navigation";
 
 
 const randomColors = [
@@ -19,6 +26,35 @@ const randomColors = [
   ];
 
 const ProductDetails=({productData}:{productData:ProductTypes})=>{
+
+  const router=useRouter()
+  const {userData,fetchUserData}=useContext(UserContext)
+  const {setCartItems}=useContext(CartContext)
+
+  const handleBuyNow=async()=>{
+    if (userData.email!=="") {
+      await addToCartApiCall(productData);
+      fetchUserData()
+      router.push("/cart")
+    } else {
+      setCartItems((prevItems) => {
+        const existingProductIndex = prevItems.findIndex(
+          (item) => item.product.id === productData.id
+        );
+
+        if (existingProductIndex >= 0) {
+          const updatedItems = [...prevItems];
+          const updatedProduct = { ...updatedItems[existingProductIndex] };
+          updatedProduct.productCount += 1;
+          updatedItems[existingProductIndex] = updatedProduct;
+          return updatedItems;
+        } else {
+          const newProduct = { product: productData, productCount: 1 };
+          return [...prevItems, newProduct];
+        }
+      });
+    }
+  }
 
     return(
         <>
@@ -79,7 +115,7 @@ const ProductDetails=({productData}:{productData:ProductTypes})=>{
                 <div className="w-[100px]">
                   <IncreaseDecreaseProductBuyCountButton product={productData} />
                 </div>
-                <div>
+                <div onClick={()=>handleBuyNow()}>
                   <Button text="Buy Now" color="#DB4444" />
                 </div>
                 <div className="px-3 py-3 border rounded-md flex items-center justify-center">

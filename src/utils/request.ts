@@ -28,9 +28,13 @@ export const addToCartApiCall = async (product:ProductTypes) => {
       if (res.ok) {
         console.log(response.message);
         return response.message;
+      }else{
+        return response.message;
       }
     } catch (error) {
       console.log(error);
+      const message="Unable to add to cart"
+      return message;
     }
   };
 
@@ -48,9 +52,13 @@ export const removeFromCartApiCall = async (product:ProductTypes) => {
       if (res.ok) {
         console.log(response.message);
         return response.message;
+      }else{
+        return response.message;
       }
     } catch (error) {
       console.log(error);
+      const message="Unable to remove from cart"
+      return message;
     }
   };
 
@@ -66,10 +74,15 @@ export const wishlistUpdateApiCall = async (product:ProductTypes) => {
       });
       const response = await res.json();
       if (res.ok) {
-        console.log(response.message);
+        console.log(response.message)
+        return response.message
+      }else{
+        return response.message
       }
     } catch (error) {
       console.log(error);
+      const message="Unable to update your wishlist"
+      return message;
     }
   };
 
@@ -80,9 +93,13 @@ export const addWishlistToCartApiCall=async()=>{
     if(res.ok){
       console.log(response.message)
       return response.message
+    }else{
+      return response.message
     }
   } catch (error) {
     console.log(error)
+    const message="Unable to add items to wishlist"
+    return message;
   }
 }
 
@@ -93,9 +110,13 @@ export const emptyCartApiCall=async()=>{
     if(res.ok){
       console.log(response)
       return response.message
+    }else{
+      return response.message
     }
   } catch (error) {
     console.log(error)
+    const message="Unable to empty cart"
+    return message;
   }
 }
 
@@ -107,8 +128,12 @@ export const createOrdersApiCall=async()=>{
     if(res.ok){
       console.log(response)
       return response
+    }else{
+      return response.message
     }
   } catch (error) {
     console.log(error)
+    const message="Unable to create orders"
+    return message;
   }
 }

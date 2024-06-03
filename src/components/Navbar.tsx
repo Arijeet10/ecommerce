@@ -20,7 +20,7 @@ const Navbar = () => {
   const { data, status } = useSession();
 
   const [sidebar, setSidebar] = useState(false);
-  const { userData,fetchUserData } = useContext(UserContext);
+  const { userData, fetchUserData } = useContext(UserContext);
   const { cartItems } = useContext(CartContext);
   const { wishlistItems } = useContext(WishlistContext);
 
@@ -31,15 +31,14 @@ const Navbar = () => {
   };
 
   const handleProfileDropdown = () => {
-    if (userData.email!=="") {
+    if (userData.email !== "") {
       setProfileDropdown(!profileDropdown);
     }
   };
 
   useEffect(() => {
     fetchUserData();
-  }, [])
-  
+  }, []);
 
   return (
     <>
@@ -58,23 +57,90 @@ const Navbar = () => {
             )}
           </div>
           {sidebar && (
-            <div className="sm:hidden p-4  fixed z-50 top-0 right-0 w-[50vw] h-full bg-[#FAFAFA]  ">
+            <div className="sm:hidden px-4 pt-20  fixed z-50 top-0 right-0 w-[50vw] h-full bg-[#FFFFFF] text-lg font-medium flex flex-col gap-8">
               <section className=" flex items-center justify-end">
                 <CgClose
                   onClick={() => setSidebar(false)}
                   className="w-6 h-6"
                 />
               </section>
-              <section>
-                <Link href="/">Home</Link>
-                <Link href="/about">About</Link>
-                <Link href="/contact">Contact</Link>
-                <Link href="/signup">Signup</Link>
+              <section className="flex flex-col gap-4">
+                <Link onClick={()=>setSidebar(false)} href="/">Home</Link>
+                <Link onClick={()=>setSidebar(false)} href="/about">About</Link>
+                <Link onClick={()=>setSidebar(false)} href="/contact">Contact</Link>
+                <Link
+                  onClick={()=>setSidebar(false)}
+                  href="/signup"
+                  className={`${userData.email !== "" ? "hidden" : "block"}`}
+                >
+                  Signup
+                </Link>
               </section>
-              <section>
-                <div>Search</div>
-                <div>Wishlist</div>
-                <div>Cart</div>
+              <section className="flex flex-col gap-4">
+                <div>
+                  <Search />
+                </div>
+                <div>
+                  <Link
+                    onClick={()=>setSidebar(false)}
+                    href="/wishlist"
+                    className="flex items-center gap-2 cursor-pointer"
+                  >
+                    <div>
+                      <WishlistIcon
+                        count={
+                          status == "authenticated"
+                            ? userData.wishlist.length
+                            : wishlistItems?.length
+                        }
+                      />
+                    </div>
+                    <div>Wishlist</div>
+                  </Link>
+                </div>
+                <Link
+                  onClick={()=>setSidebar(false)}
+                  href="/cart"
+                  className="flex items-center gap-2 cursor-pointer"
+                >
+                  <div>
+                    <CartIcon
+                      count={
+                        status == "authenticated"
+                          ? userData.cart.length
+                          : cartItems?.length
+                      }
+                    />
+                  </div>
+                  <div>Cart</div>
+                </Link>
+                {userData.email !== "" && (
+                  <Link onClick={()=>setSidebar(false)} href="/profile" className="flex items-center gap-2">
+                    {data?.user?.image ? (
+                      <>
+                        <div>
+                          <Image
+                            src={data.user.image}
+                            alt=""
+                            width={100}
+                            height={100}
+                            className="rounded-full w-7 h-7"
+                          />
+                        </div>
+                        <div>{data.user.name}</div>
+                      </>
+                    ) : (
+                      <>
+                        <div>
+                          <div className="bg-red flex items-center justify-center rounded-full text-[#FAFAFA] sm:p-2 lg:p-1">
+                            <FiUser className=" w-7 h-7" />
+                          </div>
+                        </div>
+                        <div>{userData.fullname}</div>
+                      </>
+                    )}
+                  </Link>
+                )}
               </section>
             </div>
           )}
@@ -104,7 +170,7 @@ const Navbar = () => {
             <Link
               href="/signup"
               className={`border-b border-transparent hover:border-slate-500 ${
-                status == "authenticated" ? "hidden" : "block"
+                userData.email !== "" ? "hidden" : "block"
               }`}
             >
               Sign Up
@@ -137,7 +203,7 @@ const Navbar = () => {
                 }
               />
             </Link>
-            {userData.email!=="" && (
+            {userData.email !== "" && (
               <div onClick={() => handleProfileDropdown()}>
                 {data?.user?.image ? (
                   <Image
@@ -155,7 +221,7 @@ const Navbar = () => {
               </div>
             )}
           </div>
-          {userData.email!=="" && profileDropdown && (
+          {userData.email !== "" && profileDropdown && (
             <ProfileDropdownOptions
               closeProfileDropdown={closeProfileDropdown}
             />

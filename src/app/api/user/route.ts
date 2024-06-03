@@ -7,7 +7,7 @@ export async function GET(req:NextRequest){
     try {
         const data=await getDataFromToken(req)
         console.log("Token Data:",data)
-        if(!data){
+        if(!data?.email){
             return NextResponse.json({message:"User not Signed in"},{status:404})
         }
         const user=await prisma.ecommerceUser.findUnique({where:{email:data.email as string}})

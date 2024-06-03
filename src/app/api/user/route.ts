@@ -1,11 +1,12 @@
 import { NextRequest,NextResponse } from "next/server";
 import prisma from "../../../../prisma/client";
 import { getDataFromToken } from "@/utils/getDataFromToken";
+import { getToken } from "next-auth/jwt";
 
 
 export async function GET(req:NextRequest){
     try {
-        const data=await getDataFromToken(req)
+        const data=await getToken({req})
         console.log("Token Data:",data)
         if(!data?.email){
             return NextResponse.json({message:"User not Signed in"},{status:404})

@@ -39,7 +39,12 @@ const UserContextProvider=({children}:{children:ReactNode})=>{
 
     const fetchUserData=async()=>{
         try {
-            const res=await fetch("/api/user")
+            const res=await fetch("/api/user",{
+                method:"GET",
+                headers:{
+                    "Content-Type":"application/json"
+                }
+            })
             const response=await res.json()
             if(res.ok){
                 setUserData(response.user)
@@ -50,7 +55,9 @@ const UserContextProvider=({children}:{children:ReactNode})=>{
     }
 
     useEffect(() => {
-        fetchUserData()
+        if(status=="authenticated"){
+            fetchUserData()
+        }
 
     }, [status])
     

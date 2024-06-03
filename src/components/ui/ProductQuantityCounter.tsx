@@ -15,12 +15,12 @@ const ProductQuantityCounter = ({
   productData: CartProductTypes;
 }) => {
 
-  const {status}=useSession()
+  // const {status}=useSession()
   const {userData,fetchUserData}=useContext(UserContext)
   const { cartItems, setCartItems } = useContext(CartContext);
 
   const handleProductCountDecrease = async() => {
-    if(status=="authenticated"){
+    if(userData.email!==""){
       await removeFromCartApiCall(productData.product)
       fetchUserData();
     }else{
@@ -47,7 +47,7 @@ const ProductQuantityCounter = ({
   };
 
   const handleProductCountIncrease = async() => {
-    if(status=="authenticated"){
+    if(userData.email!==""){
       await addToCartApiCall(productData.product)
       fetchUserData()
     }else{

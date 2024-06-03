@@ -16,7 +16,8 @@ export const UserContext=createContext<UserContextProps>({
         fullname:"",
         password:"", 
         wishlist:[],
-        cart:[]
+        cart:[],
+        orders:[]
     },
     fetchUserData:()=>Promise.resolve()
 })
@@ -31,7 +32,8 @@ const UserContextProvider=({children}:{children:ReactNode})=>{
         fullname:"",
         password:"", 
         wishlist:[],
-        cart:[]
+        cart:[],
+        orders:[]
     })
 
     const fetchUserData=async()=>{

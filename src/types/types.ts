@@ -20,6 +20,11 @@ export interface CartProductTypes{
     productCount:number;
 }
 
+export interface OrdersTypes{
+    orderData:CartProductTypes;
+    orderDate:Date;
+}
+
 export interface UserDataTypes{
     id:string;
     email:string;
@@ -27,6 +32,7 @@ export interface UserDataTypes{
     password:string; 
     wishlist:ProductTypes[];
     cart:CartProductTypes[];
+    orders:OrdersTypes[];
 }
 
 export interface CheckoutFormTypes{
@@ -38,4 +44,9 @@ export interface CheckoutFormTypes{
     city:string;
     phoneNumber:string;
     paymentOption:string;
+}
+
+export interface OrderTypes{
+    orderData:{};
+    orderId:number;
 }

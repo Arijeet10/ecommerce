@@ -34,7 +34,6 @@ export const addToCartApiCall = async (product:ProductTypes) => {
     }
   };
 
-
 export const removeFromCartApiCall = async (product:ProductTypes) => {
     try {
       const res = await fetch("/api/cart/remove", {
@@ -74,7 +73,6 @@ export const wishlistUpdateApiCall = async (product:ProductTypes) => {
     }
   };
 
-
 export const addWishlistToCartApiCall=async()=>{
   try {
     const res=await fetch("/api/cart/add-wishlist")
@@ -82,6 +80,33 @@ export const addWishlistToCartApiCall=async()=>{
     if(res.ok){
       console.log(response.message)
       return response.message
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const emptyCartApiCall=async()=>{
+  try {
+    const res=await fetch("/api/cart/empty")
+    const response=await res.json()
+    if(res.ok){
+      console.log(response)
+      return response.message
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
+export const createOrdersApiCall=async()=>{
+  try {
+    const res=await fetch("/api/orders")
+    const response=await res.json()
+    if(res.ok){
+      console.log(response)
+      return response
     }
   } catch (error) {
     console.log(error)

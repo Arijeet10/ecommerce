@@ -23,7 +23,7 @@ const ProductCard = ({
   discount?: number;
 }) => {
   const { userData,fetchUserData } = useContext(UserContext);
-  const { status } = useSession();
+  // const { status } = useSession();
   const { wishlistItems, setWishlistItems } = useContext(WishlistContext);
   const { cartItems, setCartItems } = useContext(CartContext);
 
@@ -32,7 +32,7 @@ const ProductCard = ({
 
 
   const handleAddToCartClick =async () => {
-    if (status == "authenticated") {
+    if (userData.email!=="") {
       await addToCartApiCall(product);
       fetchUserData()
     } else {
@@ -56,7 +56,7 @@ const ProductCard = ({
   };
 
   const handleWishlistClick = async() => {
-    if (status == "authenticated") {
+    if (userData.email!=="") {
       await wishlistUpdateApiCall(product);
       fetchUserData();
     } else {
@@ -107,7 +107,7 @@ const ProductCard = ({
               onClick={() => handleWishlistClick()}
               className="w-8 h-8 rounded-full bg-[#FFFFFF] flex items-center justify-center cursor-pointer"
             >
-              {status == "authenticated" ? (
+              {userData.email!=="" ? (
                 userData.wishlist.find(
                   (wishlistItem) => wishlistItem.id == product.id
                 ) ? (
@@ -163,7 +163,7 @@ const ProductCard = ({
               <FiEye className="w-5 h-5" />
             </div>
           </div>
-          {status=="authenticated"?(
+          {userData.email!==""?(
             userData.cart.find(item=>item.product.id==product.id)?(
               <div className="absolute bottom-0 w-full bg-[#F5F5F5]  rounded-md">
                 <IncreaseDecreaseProductBuyCountButton product={product} />

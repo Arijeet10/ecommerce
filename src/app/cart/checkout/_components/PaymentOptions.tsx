@@ -6,7 +6,7 @@ import { SetStateAction } from "react";
 const PaymentOptions = ({formData,setFormData}:{formData:CheckoutFormTypes,setFormData:React.Dispatch<SetStateAction<CheckoutFormTypes>>}) => {
   return (
     <>
-      <form onSubmit={(e)=>e.preventDefault} className="flex flex-col gap-8">
+      <div  className="flex flex-col gap-8">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <div>
@@ -35,7 +35,7 @@ const PaymentOptions = ({formData,setFormData}:{formData:CheckoutFormTypes,setFo
           </div>
           <div>Cash on Delivery</div>
         </div>
-      </form>
+      </div>
     </>
   );
 };

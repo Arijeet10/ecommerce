@@ -12,13 +12,13 @@ import { useContext } from "react";
 
 const Wishlist = () => {
 
-  const {status}=useSession()
+  // const {status}=useSession()
   const {userData,fetchUserData}=useContext(UserContext)
   const { wishlistItems , setWishlistItems} = useContext(WishlistContext);
   const { setCartItems } = useContext(CartContext);
 
   const handleAddToCart = async() => {
-    if(status=="authenticated"){
+    if(userData.email!==""){
       if(userData.wishlist.length>0){
         await addWishlistToCartApiCall()
         fetchUserData()
@@ -42,11 +42,11 @@ const Wishlist = () => {
 
   return (
     <>
-      <div className={`px-4 py-4 ${status=="authenticated"?userData.wishlist.length==0 && "h-[100vh]":wishlistItems.length==0 && 'h-[100vh]'} flex flex-col gap-20`}>
+      <div className={`px-4 py-4 ${userData.email!==""?userData.wishlist.length==0 && "h-[100vh]":wishlistItems.length==0 && 'h-[100vh]'} flex flex-col gap-20`}>
         <div className="flex flex-col gap-16">
           <div className="flex items-center justify-between">
             <div className="text-lg">
-              Wishlist <span>({status=="authenticated"?userData.wishlist.length:wishlistItems.length})</span>
+              Wishlist <span>({userData.email!==""?userData.wishlist.length:wishlistItems.length})</span>
             </div>
             <div onClick={() => handleAddToCart()}>
               <Button
@@ -58,7 +58,7 @@ const Wishlist = () => {
             </div>
           </div>
           <div className="w-full grid sm:grid-col-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-            {status=="authenticated"?(
+            {userData.email!==""?(
               userData.wishlist.map((item,i)=>{
                 return <ProductCard key={i} product={item} />
               })

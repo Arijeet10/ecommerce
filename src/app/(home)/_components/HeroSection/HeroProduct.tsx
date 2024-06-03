@@ -23,7 +23,7 @@ const HeroProduct = ({ product,activeProduct }:{product:ProductTypes,activeProdu
           </div>
         </div>
         <div className="relative w-full h-full ">
-          <Image src={`${product.image}`} alt="" fill={true} className="  w-full h-full object-contain bg-transparent" />
+          <Image src={`${product.image}`} alt="" width={500} height={500} className="  w-full h-full object-contain bg-transparent" />
           <div className="absolute inset-0 bg-gradient-to-b  from-transparent to-[#000000]" />
         </div>
       </div>

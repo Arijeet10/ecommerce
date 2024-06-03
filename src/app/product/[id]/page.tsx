@@ -32,7 +32,7 @@ const Product = () => {
 
   const fetchRelatedProductsData = async (relatedProductCategory: string) => {
     const url = `${process.env.NEXT_PUBLIC_FAKE_STORE_API}/category/${relatedProductCategory}`;
-    console.log(url);
+    //console.log(url);
     try {
       const data = await getApiData(url);
       setRelatedProducts(data);

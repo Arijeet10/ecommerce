@@ -14,13 +14,13 @@ const IncreaseDecreaseProductBuyCountButton = ({
 }: {
   product: ProductTypes;
 }) => {
-  const { status } = useSession();
+  // const { status } = useSession();
 
   const { userData,fetchUserData } = useContext(UserContext);
   const { cartItems, setCartItems } = useContext(CartContext);
 
   const handleDecreaseProductCount = async() => {
-    if (status == "authenticated") {
+    if (userData.email!=="") {
       await removeFromCartApiCall(product);
       fetchUserData();
     } else {
@@ -46,7 +46,7 @@ const IncreaseDecreaseProductBuyCountButton = ({
   };
 
   const handleIncreaseProductCount = async() => {
-    if (status == "authenticated") {
+    if (userData.email!=="") {
       await addToCartApiCall(product);
       fetchUserData();
     } else {
@@ -84,7 +84,7 @@ const IncreaseDecreaseProductBuyCountButton = ({
           </button>
           <div className="py-3 col-span-6 border-y flex items-center justify-center">
             <div className="font-medium">
-              {status == "authenticated"
+              {userData.email!==""
                 ? userData.cart.find((item) => item.product.id === product.id)
                     ?.productCount ?? 0
                 : cartItems.find((item) => item.product.id === product.id)

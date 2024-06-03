@@ -31,7 +31,7 @@ const Navbar = () => {
   };
 
   const handleProfileDropdown = () => {
-    if (status == "authenticated") {
+    if (userData.email!=="") {
       setProfileDropdown(!profileDropdown);
     }
   };
@@ -137,7 +137,7 @@ const Navbar = () => {
                 }
               />
             </Link>
-            {status == "authenticated" && (
+            {userData.email!=="" && (
               <div onClick={() => handleProfileDropdown()}>
                 {data?.user?.image ? (
                   <Image
@@ -155,7 +155,7 @@ const Navbar = () => {
               </div>
             )}
           </div>
-          {status == "authenticated" && profileDropdown && (
+          {userData.email!=="" && profileDropdown && (
             <ProfileDropdownOptions
               closeProfileDropdown={closeProfileDropdown}
             />

@@ -70,8 +70,7 @@ const CheckoutFormInput = ({
 
   return (
     <>
-      <form
-        onSubmit={(e) => e.preventDefault()}
+      <div
         className="flex flex-col gap-6"
       >
         <div>
@@ -210,7 +209,7 @@ const CheckoutFormInput = ({
           </div>
           <div>Save this information for faster check-out next time</div>
         </div>
-      </form>
+      </div>
     </>
   );
 };

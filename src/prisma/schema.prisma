@@ -22,7 +22,10 @@ model EcommerceUser{
   password String 
   wishlist EcommerceProductData[] @unique
   cart EcommerceProduct[] @unique
+  orders Orders[]
 }
+
+
 
 type Ratings{
     count Int
@@ -44,3 +47,7 @@ type EcommerceProduct{
   productCount Int
 }
 
+type Orders{
+  orderData EcommerceProduct[]
+  orderDate DateTime @default(now())
+}

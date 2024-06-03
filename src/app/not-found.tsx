@@ -10,7 +10,7 @@ const NotFound=()=>{
             <div className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-medium">
               404 Not Found
             </div>
-            <div>Your visited page not found. You may go home page.</div>
+            <div>Your visited page not found. You may go to home page.</div>
           </div>
           <div className="flex items-center justify-center">
             <Link href="/">

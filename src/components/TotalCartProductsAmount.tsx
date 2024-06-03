@@ -9,11 +9,11 @@ import { useSession } from "next-auth/react";
 const TotalCartProductsAmount = () => {
 
   
-  const { status } = useSession();
+  // const { status } = useSession();
   const { userData } = useContext(UserContext);
   const { cartItems } = useContext(CartContext);
   let subTotalAmt;
-  if (status == "authenticated") {
+  if (userData.email!=="") {
     subTotalAmt =
       (userData.cart?.length > 0 &&
         userData.cart.reduce((acc, next) => {

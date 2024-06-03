@@ -13,7 +13,7 @@ import { UserContext } from "@/context/UserContextProvider";
 const Cart = () => {
   const router = useRouter();
 
-  const { status } = useSession();
+  // const { status } = useSession();
 
   const { userData } = useContext(UserContext);
   const { cartItems } = useContext(CartContext);
@@ -39,7 +39,7 @@ const Cart = () => {
                 </div>
               </div>
               <div className="h-[50vh] overflow-scroll hide-default-scrollbar flex flex-col gap-10">
-                {status == "authenticated" ? (
+                {userData.email!=="" ? (
                   userData.cart.length > 0 ? (
                     userData.cart.map((item, i) => {
                       return <ProductCartList key={i} productData={item} />;
@@ -82,7 +82,7 @@ const Cart = () => {
           </div>
           <div
             className={`flex flex-col sm:flex-row items-start justify-between gap-4 sm:gap-0 ${
-              status=="authenticated"?userData.cart.length==0&&"hidden":
+              userData.email!==""?userData.cart.length==0&&"hidden":
               cartItems.length == 0 && "hidden"
             }`}
           >

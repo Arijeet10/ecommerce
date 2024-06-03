@@ -8,6 +8,7 @@ import CartContextProvider from "@/context/CartContextProvider";
 import WishlistContextProvider from "@/context/WishlistContextProvider";
 import AuthProvider from "@/context/AuthProvider";
 import UserContextProvider from "@/context/UserContextProvider";
+import OrderContextProvider from "@/context/OrderProvider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -32,8 +33,10 @@ export default function RootLayout({
           <CartContextProvider>
             <AuthProvider>
               <UserContextProvider>
-                <Navbar />
-                {children}
+                <OrderContextProvider>
+                  <Navbar />
+                  {children}
+                </OrderContextProvider>
               </UserContextProvider>
             </AuthProvider>
           </CartContextProvider>

@@ -1,3 +1,58 @@
+# E-commerce App with Next.js, Prisma, MongoDB and Stripe Payments
+
+This is my E-commerce app built in Next.js framework! This project aims to provide a robust platform for online shopping with a focus on performance, scalability, and user experience.
+
+## Features
+
+- **Next.js Framework**: Utilizing the power of Next.js for server-side rendering, routing, and other optimizations.
+- **Prisma and MongoDB**: Backend powered by Prisma ORM with MongoDB as the database for efficient data storage and retrieval.
+- **Stripe Payments**: Integrated Stripe API for seamless and secure payment processing during checkout.
+
+## Installation
+
+1. **Clone the repository.**
+
+```bash
+git clone https://github.com/Arijeet10/ecommerce.git
+```
+
+2. **Install dependencies**
+
+```bash
+cd ecommerce
+npm install
+```
+
+3. **Set up environment variables**
+
+```bash
+NEXT_PUBLIC_FAKE_STORE_API=https://fakestoreapi.com/products
+DATABASE_URL=
+GOOGLE_CLIENT_ID="
+GOOGLE_CLIENT_SECRET=
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET="ecommerceApppp"
+NODE_ENV="development"
+TOKEN_SECRET="apptokenmm"
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
+STRIPE_SECRET_KEY=
+```
+
+Fill up all the environment variables according to your credentials.
+
+## Usage
+
+1. **Start the development server.**
+
+```bash
+npm run dev
+```
+
+2. **Open your browser and navigate to http://localhost:3000**
+3. **Explore the app and enjoy virtual shopping!**
+
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

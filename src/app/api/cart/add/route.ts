@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/prisma/client";
 import { getDataFromToken } from "@/utils/getDataFromToken";
+import { CartProductTypes } from "@/types/types";
 
 export async function POST(req: NextRequest) {
   try {
@@ -29,7 +30,7 @@ export async function POST(req: NextRequest) {
     }
     //console.log("User",user)
     const existingCartIndex = user.cart.findIndex(
-      (item) => item?.product.id === product.id
+      (item:CartProductTypes) => item?.product.id === product.id
     );
     const newCart = (() => {
       if (existingCartIndex >= 0) {

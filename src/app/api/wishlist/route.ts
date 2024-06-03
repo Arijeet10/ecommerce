@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/prisma/client";
 import { getDataFromToken } from "@/utils/getDataFromToken";
+import { ProductTypes } from "@/types/types";
 
 export async function POST(req: NextRequest) {
   try {
@@ -28,7 +29,7 @@ export async function POST(req: NextRequest) {
     }
 
     const newWishlist=(()=>{
-        if(user.wishlist.find(item=>item.id==product.id)){
+        if(user.wishlist.find((item:ProductTypes)=>item.id==product.id)){
             const updatedWishlist=[...user.wishlist]
             const productIndexInWishlist=updatedWishlist.findIndex(item=>item.id==product.id)
             updatedWishlist.splice(productIndexInWishlist,1)

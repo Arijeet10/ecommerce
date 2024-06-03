@@ -6,11 +6,14 @@ export const getDataFromToken=async(req:NextRequest)=>{
     try {
         const data=await getToken({req})
         if(data){
+            console.log("Token obtained from next-auth:", data);
             return data
         }else{
             const token=req.cookies.get('token')?.value || ""
+            console.log("Token from cookies:", token);
             if(token){
                 const userData=await jwt.verify(token,process.env.TOKEN_SECRET!) as jwt.JwtPayload
+                console.log("User data from verified token:", userData);
                 return userData
             }
         }
@@ -18,4 +21,5 @@ export const getDataFromToken=async(req:NextRequest)=>{
     } catch (error) {
         console.log("Unable to get token data:",error)
     }
+    return null;
 }

@@ -53,9 +53,7 @@ const UserContextProvider=({children}:{children:ReactNode})=>{
     }
 
     useEffect(() => {
-        if(status=="authenticated"){
-            fetchUserData()
-        }
+        fetchUserData()
 
     }, [status])
     

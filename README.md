@@ -28,7 +28,7 @@ npm install
 ```bash
 NEXT_PUBLIC_FAKE_STORE_API=https://fakestoreapi.com/products
 DATABASE_URL=
-GOOGLE_CLIENT_ID="
+GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
 NEXTAUTH_URL="http://localhost:3000"
 NEXTAUTH_SECRET="ecommerceApppp"

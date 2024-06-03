@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../../prisma/client";
 import { getDataFromToken } from "@/utils/getDataFromToken";
+import { getToken } from "next-auth/jwt";
 
 export async function GET(req: NextRequest) {
   try {
-    const data = await getDataFromToken(req);
+    const data=await getToken({req})
     if (!data) {
       return NextResponse.json(
         { message: "Sign in to empty your cart" },

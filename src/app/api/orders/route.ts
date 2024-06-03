@@ -1,19 +1,35 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../../prisma/client";
-import { getDataFromToken } from "@/utils/getDataFromToken";
+// import { getDataFromToken } from "@/utils/getDataFromToken";
 import { getToken } from "next-auth/jwt";
+import jwt from "jsonwebtoken"
 
 export async function GET(req: NextRequest) {
   try {
-    const data=await getToken({req})
-    if (!data) {
+    const nextAuthTokenData=await getToken({req})
+    let email;
+    if(nextAuthTokenData?.email){
+        email=nextAuthTokenData.email
+    }else{
+        const token=await req.cookies.get("token")?.value
+        if(!token){
+            return NextResponse.json({message:"User not signed in"},{status:404})
+        }
+        try {
+            const decodedToken=await jwt.verify(token,process.env.TOKEN_SECRET!)
+            const email=(decodedToken as jwt.JwtPayload).email
+        } catch (error) {
+            return NextResponse.json({message:"Invalid Token"},{status:404})
+        }
+    }
+    if (!email) {
       return NextResponse.json(
         { message: "Sign in to empty your cart" },
         { status: 404 }
       );
     }
     const user = await prisma.ecommerceUser.findUnique({
-      where: { email: data?.email as string },
+      where: { email: email as string },
     });
     if (!user) {
       return NextResponse.json(
@@ -29,7 +45,7 @@ export async function GET(req: NextRequest) {
 
     await prisma.ecommerceUser.update({
       where: {
-        email: data?.email as string,
+        email: email as string,
       },
       data: {
         cart: [],

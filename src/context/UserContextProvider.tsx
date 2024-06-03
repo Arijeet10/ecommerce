@@ -14,7 +14,6 @@ export const UserContext=createContext<UserContextProps>({
         id:"",
         email:"",
         fullname:"",
-        password:"", 
         wishlist:[],
         cart:[],
         orders:[]
@@ -31,7 +30,6 @@ const UserContextProvider=({children}:{children:ReactNode})=>{
         id:"",
         email:"",
         fullname:"",
-        password:"", 
         wishlist:[],
         cart:[],
         orders:[]

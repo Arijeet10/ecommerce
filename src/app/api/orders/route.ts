@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
         }
         try {
             const decodedToken=await jwt.verify(token,process.env.TOKEN_SECRET!)
-            const email=(decodedToken as jwt.JwtPayload).email
+            email=(decodedToken as jwt.JwtPayload).email
         } catch (error) {
             return NextResponse.json({message:"Invalid Token"},{status:404})
         }

@@ -29,7 +29,6 @@ export interface UserDataTypes{
     id:string;
     email:string;
     fullname:string;
-    password:string; 
     wishlist:ProductTypes[];
     cart:CartProductTypes[];
     orders:OrdersTypes[];

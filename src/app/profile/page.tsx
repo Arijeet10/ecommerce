@@ -1,6 +1,6 @@
 "use client"
 
-import { useSession } from "next-auth/react";
+// import { useSession } from "next-auth/react";
 import EditProfileForm from "./_components/EditProfileForm";
 import { useContext } from "react";
 import { UserContext } from "@/context/UserContextProvider";
@@ -8,7 +8,7 @@ import { UserContext } from "@/context/UserContextProvider";
 
 const Profile=()=>{
 
-    const {data}=useSession()
+    //const {data}=useSession()
     const {userData}=useContext(UserContext)
 
     return(

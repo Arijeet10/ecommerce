@@ -10,7 +10,7 @@ interface OrderContextTypes{
 
 export const OrderContext=createContext<OrderContextTypes>({
     order:{
-        orderData:{},
+        orderData:[],
         orderId:0
     },
     setOrder:()=>{}
@@ -18,8 +18,8 @@ export const OrderContext=createContext<OrderContextTypes>({
 
 const OrderContextProvider=({children}:{children:ReactNode})=>{
 
-    const [order,setOrder]=useState({
-        orderData:{},
+    const [order,setOrder]=useState<OrderTypes>({
+        orderData:[],
         orderId:0
     })
 

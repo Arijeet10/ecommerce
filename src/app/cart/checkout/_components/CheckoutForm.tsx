@@ -12,6 +12,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { UserContext } from "@/context/UserContextProvider";
 import { OrderContext } from "@/context/OrderProvider";
 import { createOrdersApiCall } from "@/utils/request";
+import toast from "react-hot-toast";
 
 const stripePromise=loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
 
@@ -55,7 +56,13 @@ const CheckoutForm = () => {
         console.log(response)
         setOrder({orderData:userData.cart,orderId:response.id})
         stripe?.redirectToCheckout({sessionId:response.id})
-        await createOrdersApiCall()
+        const orderResponse=await createOrdersApiCall()
+        const orderDetails=await orderResponse.json()
+        if(orderResponse.ok){
+          toast.success(orderDetails.message)
+        }else{
+          toast.error(orderDetails)
+        }
       }else{
         throw new Error("Failed to perform Stripe Payment")
       }

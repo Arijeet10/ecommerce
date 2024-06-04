@@ -46,6 +46,6 @@ export interface CheckoutFormTypes{
 }
 
 export interface OrderTypes{
-    orderData:{};
+    orderData:CartProductTypes[];
     orderId:number;
 }

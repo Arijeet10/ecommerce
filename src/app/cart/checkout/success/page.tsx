@@ -1,31 +1,40 @@
-// "use client";
+"use client";
 
 import Button from "@/components/ui/Button";
-// import { createOrdersApiCall } from "@/utils/request";
+import { OrderContext } from "@/context/OrderProvider";
 import Link from "next/link";
-// import { useEffect } from "react";
-// import toast, { Toaster } from "react-hot-toast";
+import { useContext } from "react";
+
 
 const CheckoutSuccess = () => {
-  // const handleShipment = async () => {
-  //   try {
-  //     const res = await createOrdersApiCall();
-  //     console.log(res.newOrder);
-  //     toast.success(res.message);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
-  // useEffect(() => {
-  //   handleShipment();
-  // }, []);
+
+  const {order}=useContext(OrderContext)
 
   return (
     <>
       {/* <Toaster /> */}
       <div className="px-4 py-4 w-full h-[100vh] flex items-center justify-center">
         <div className="flex flex-col gap-8">
+          <div className=" max-h-[60vh] flex flex-col gap-2 overflow-scroll hide-default-scrollbar">
+            {order?.orderData && order.orderData.map((item,i)=>{
+              return(
+                <div key={i} className=" flex items-center gap-6">
+                <div className="w-10 h-10">
+                  <img 
+                    src={item.product.image}
+                    alt=""
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                <div className="w-full flex items-center justify-between">
+                  <div className="max-w-[250px] overflow-hidden text-ellipsis text-nowrap">x{item.productCount} {item.product.title}</div>
+                  <div>${item?.product.price * item?.productCount}</div>
+                </div>
+              </div>
+              )
+            })}
+          </div>
           <div className="flex flex-col items-center gap-4">
             <div className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-medium">
               Products Shipped

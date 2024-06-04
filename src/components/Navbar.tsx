@@ -52,8 +52,8 @@ const Navbar = () => {
     <>
     <Toaster />
       <nav className="px-4 py-4 border-b relative  sm:flex sm:items-center sm:justify-between text-sm sm:text-xs md:text-sm lg:text-base">
-        <section className=" flex items-center justify-between gap-2 sm:gap-4 md:gap-10 lg:gap-32 text-[#363738FF]">
-          <div className="font-bold text-lg sm:text-sm md:text-lg lg:text-2xl">
+        <section className=" flex items-center justify-between gap-2 sm:gap-4 md:gap-6 lg:gap-32 text-[#363738FF]">
+          <div className="font-bold text-lg sm:text-sm md:text-base lg:text-2xl">
             Ecommerce App
           </div>
           {/* Mobile View */}

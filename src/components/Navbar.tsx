@@ -17,6 +17,7 @@ import { UserContext } from "@/context/UserContextProvider";
 import Search from "./Search";
 import { SlLogout } from "react-icons/sl";
 import { logoutUser } from "@/utils/request";
+import { Toaster } from "react-hot-toast";
 
 const Navbar = () => {
   const { data, status } = useSession();
@@ -49,6 +50,7 @@ const Navbar = () => {
 
   return (
     <>
+    <Toaster />
       <nav className="px-4 py-4 border-b relative  sm:flex sm:items-center sm:justify-between text-sm sm:text-xs md:text-sm lg:text-base">
         <section className=" flex items-center justify-between gap-2 sm:gap-4 md:gap-10 lg:gap-32 text-[#363738FF]">
           <div className="font-bold text-lg sm:text-sm md:text-lg lg:text-2xl">

@@ -2,11 +2,14 @@
 
 import { useSession } from "next-auth/react";
 import EditProfileForm from "./_components/EditProfileForm";
+import { useContext } from "react";
+import { UserContext } from "@/context/UserContextProvider";
 
 
 const Profile=()=>{
 
     const {data}=useSession()
+    const {userData}=useContext(UserContext)
 
     return(
         <>
@@ -14,7 +17,7 @@ const Profile=()=>{
                 <div className="flex items-center justify-between">
                     <div>Breadcrumb</div>
                     <div className="text-base sm:text-sm md:text-lg lg:text-2xl">
-                        Welcome! <span className="text-red">{data?.user?.name}</span>
+                        Welcome! <span className="text-red">{userData.fullname}</span>
                     </div>
                 </div>
                 <div className="flex text-sm sm:text-base">

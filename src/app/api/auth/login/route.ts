@@ -6,6 +6,7 @@ import jwt from "jsonwebtoken";
 export async function POST(req:NextRequest){
     try {
         const {email,password}=await req.json()
+        //console.log("Input Data:",email,password)
         if(!email&&!password){
             return NextResponse.json({message:"Login Credentials not found"},{status:404})
         }
@@ -32,6 +33,7 @@ export async function POST(req:NextRequest){
         return response;
 
     } catch (error) {
+        console.log("Login Error:",error)
         return NextResponse.json({message:"Login Error:",error},{status:500})
     }
 }

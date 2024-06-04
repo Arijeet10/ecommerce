@@ -6,6 +6,7 @@ export async function POST(req:NextRequest){
     try {
         
         const {fullname,email,password}=await req.json()
+        //console.log("Request Data:",fullname,email,password)
 
         if(!fullname||!email||!password){
             return NextResponse.json({message:"No data provided"},{status:404})
@@ -23,18 +24,17 @@ export async function POST(req:NextRequest){
             data:{
                 email,
                 password:hashedPassword,
-                fullname,
-                wishlist:[],
-                cart:[]
+                fullname
             }
         })
 
-        console.log(newUser)
+        //console.log("New User:",newUser)
 
         return NextResponse.json({message:"Account Created successfully"},{status:201})
 
     
     } catch (error) {
+        console.log("Signup Error:",error)
         return NextResponse.json({message:"Sign up error:",error},{status:500})
     }
 }

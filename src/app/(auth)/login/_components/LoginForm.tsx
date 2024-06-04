@@ -1,13 +1,17 @@
 "use client"
 
 import Button from "@/components/ui/Button";
+import { UserContext } from "@/context/UserContextProvider";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import toast from "react-hot-toast";
 
 const LoginForm = () => {
 
   const router=useRouter()
+
+  const {fetchUserData}=useContext(UserContext)
 
   const [formData,setFormData]=useState({
     email:"",
@@ -51,7 +55,7 @@ const LoginForm = () => {
           alert("Invalid Inputs!")
         }else{
           try {
-            const res=await fetch("/auth/login",{
+            const res=await fetch("/api/auth/login",{
               method:"POST",
               headers:{
                 "Content-Type":"application/json"
@@ -59,13 +63,19 @@ const LoginForm = () => {
               credentials:"same-origin",
               body:JSON.stringify(formData)
             })
-            if(res?.ok){
+            const response=await res.json()
+            console.log(response)
+            if(res.ok){
+              await fetchUserData()
+              toast.success(response.message)
               router.push("/")
             }else{
-              alert("Login Error")
+              toast.error(response.message)
+              // alert("Login Error")
             }
           } catch (error) {
             console.log(error)
+            toast.error("Oops something went wrong!")
           }
         }
       }

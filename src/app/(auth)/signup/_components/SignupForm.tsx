@@ -6,6 +6,7 @@ import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
+import toast from "react-hot-toast";
 
 const SignupForm = () => {
   const router = useRouter();
@@ -70,13 +71,17 @@ const SignupForm = () => {
           },
           body:JSON.stringify(formData)
         })
+        const response=await res.json();
+        console.log(response)
         if(res.ok){
+          toast.success(response.message)
           router.push("/login")
         }else{
-          alert("Sign up error")
+          toast.error(response.message)
         }
       } catch (error) {
         console.log(error)
+        toast.error("Oops something went wrong!")
       }
     }
   };

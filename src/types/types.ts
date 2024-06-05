@@ -21,6 +21,7 @@ export interface CartProductTypes{
 }
 
 export interface OrdersTypes{
+    orderID:string;
     orderData:CartProductTypes;
     orderDate:Date;
 }

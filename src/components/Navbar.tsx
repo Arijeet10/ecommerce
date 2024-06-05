@@ -218,7 +218,7 @@ const Navbar = () => {
             >
               <WishlistIcon
                 count={
-                  status == "authenticated"
+                  userData.email !== ""
                     ? userData.wishlist.length
                     : wishlistItems?.length
                 }
@@ -227,7 +227,7 @@ const Navbar = () => {
             <Link href="/cart" className="cursor-pointer">
               <CartIcon
                 count={
-                  status == "authenticated"
+                  userData.email !== ""
                     ? userData.cart.length
                     : cartItems?.length
                 }

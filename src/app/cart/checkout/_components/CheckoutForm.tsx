@@ -18,7 +18,6 @@ const stripePromise=loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
 
 const CheckoutForm = () => {
 
-  const {order,setOrder}=useContext(OrderContext);
   const {userData}=useContext(UserContext);
   const { cartItems } = useContext(CartContext);
   const [formData,setFormData]=useState({
@@ -54,15 +53,18 @@ const CheckoutForm = () => {
       const response=await res.json()
       if(res.ok){
         console.log(response)
-        setOrder({orderData:userData.cart,orderId:response.id})
-        stripe?.redirectToCheckout({sessionId:response.id})
-        const orderResponse=await createOrdersApiCall()
+        sessionStorage.removeItem("orders")
+        const orderData=response.orders
+        const orderID=response.id
+        sessionStorage.setItem('orders',JSON.stringify({orderData,orderID}))
+        const orderResponse=await createOrdersApiCall(response.id)
         const orderDetails=await orderResponse.json()
         if(orderResponse.ok){
           toast.success(orderDetails.message)
         }else{
           toast.error(orderDetails)
         }
+        stripe?.redirectToCheckout({sessionId:response.id})
       }else{
         throw new Error("Failed to perform Stripe Payment")
       }
@@ -91,7 +93,7 @@ const CheckoutForm = () => {
   return (
     <>
       <form onSubmit={(e) => e.preventDefault()} className="flex flex-col sm:flex-row sm:justify-between gap-4">
-        <div className={`${formData.paymentOption=="bank"?"hidden":"block"}`}>
+        <div className={`${formData.paymentOption==="cod"?"block":"hidden"}`}>
           <CheckoutFormInput errorMessage={errorMessage} setErrorMessage={setErrorMessage} formData={formData} setFormData={setFormData} />
         </div>
         <div className="  flex flex-col gap-8">

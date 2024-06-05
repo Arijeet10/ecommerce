@@ -1,6 +1,11 @@
+
+
 import CheckoutForm from "@/app/cart/checkout/_components/CheckoutForm";
 
 const Checkout = () => {
+
+
+
   return (
     <>
       <div className="px-4 py-4">

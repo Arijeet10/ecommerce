@@ -46,6 +46,7 @@ export async function GET(req: NextRequest) {
       { status: 201 }
     );
   } catch (error) {
+    console.log("Add to Cart error:",error)
     return NextResponse.json(
       { message: "Add to Cart Error:", error },
       { status: 500 }

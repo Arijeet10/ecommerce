@@ -4,7 +4,7 @@ import prisma from "../../../../prisma/client";
 import { getToken } from "next-auth/jwt";
 import jwt from "jsonwebtoken"
 
-export async function GET(req: NextRequest) {
+export async function POST(req: NextRequest) {
   try {
     const nextAuthTokenData=await getToken({req})
     let email;
@@ -38,9 +38,13 @@ export async function GET(req: NextRequest) {
       );
     }
 
+    const orderID=await req.json()
 
+    if(!orderID){
+      return NextResponse.json({message:"No order id found"},{status:404})
+    }
 
-    const newOrder={orderData:user.cart,orderDate:new Date()}
+    const newOrder={orderID,orderData:user.cart,orderDate:new Date()}
     const updatedOrders=[...(user.orders),newOrder]
 
     await prisma.ecommerceUser.update({

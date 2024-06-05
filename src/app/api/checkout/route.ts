@@ -41,7 +41,7 @@ export async function POST(req:NextRequest){
             payment_method_types:['card'],
             line_items:items,
             mode:'payment',
-            success_url:`${process.env.NEXTAUTH_URL}/cart/checkout/success`,
+            success_url:`${process.env.NEXTAUTH_URL}/cart/checkout/success/`,
             cancel_url:`${process.env.NEXTAUTH_URL}/checkout`,
             metadata:{
                 email,
@@ -49,7 +49,7 @@ export async function POST(req:NextRequest){
         })
 
         console.log("Checkout initiated!")
-        return NextResponse.json({message:"Stripe Connection is active!",id:session.id},{status:201})
+        return NextResponse.json({message:"Stripe Connection is active!",id:session.id,orders:items},{status:201})
     } catch (error) {
         console.log("Checout error:",error)
         return NextResponse.json({message:"Checkout Error:",error},{status:500})

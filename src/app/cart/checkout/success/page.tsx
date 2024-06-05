@@ -1,35 +1,37 @@
 "use client";
 
 import Button from "@/components/ui/Button";
-import { OrderContext } from "@/context/OrderProvider";
 import Link from "next/link";
-import { useContext } from "react";
 
 
 const CheckoutSuccess = () => {
 
+  const {orderData,orderID}=JSON.parse(sessionStorage.getItem('orders')|| "")
+  console.log("Orders:",orderData)
+  console.log("Order ID:",orderID)
 
-  const {order}=useContext(OrderContext)
+  
 
   return (
     <>
       {/* <Toaster /> */}
       <div className="px-4 py-4 w-full h-[100vh] flex items-center justify-center">
         <div className="flex flex-col gap-8">
-          <div className=" max-h-[60vh] flex flex-col gap-2 overflow-scroll hide-default-scrollbar">
-            {order?.orderData && order.orderData.map((item,i)=>{
+          <div className="font-semibold">Order ID: <span className="text-[#3030303] font-medium">{orderID}</span></div>
+          <div className=" max-h-[30vh] flex flex-col gap-2 overflow-scroll hide-default-scrollbar">
+            {orderData.length>0 && orderData.map((item:any,i:number)=>{
               return(
                 <div key={i} className=" flex items-center gap-6">
                 <div className="w-10 h-10">
                   <img 
-                    src={item.product.image}
+                    src={item.price_data.product_data.images}
                     alt=""
                     className="w-full h-full object-contain"
                   />
                 </div>
                 <div className="w-full flex items-center justify-between">
-                  <div className="max-w-[250px] overflow-hidden text-ellipsis text-nowrap">x{item.productCount} {item.product.title}</div>
-                  <div>${item?.product.price * item?.productCount}</div>
+                  <div className="max-w-[250px] overflow-hidden text-ellipsis text-nowrap">x{item.quantity} {item.price_data.product_data.name}</div>
+                  <div>${item.price_data.unit_amount}</div>
                 </div>
               </div>
               )

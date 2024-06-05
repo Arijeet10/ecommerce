@@ -121,9 +121,15 @@ export const emptyCartApiCall=async()=>{
 }
 
 
-export const createOrdersApiCall=async()=>{
+export const createOrdersApiCall=async(orderID:number)=>{
   try {
-    const res=await fetch("/api/orders")
+    const res=await fetch("/api/orders",{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify(orderID)
+    })
     const response=await res.json()
     if(res.ok){
       console.log(response)

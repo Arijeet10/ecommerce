@@ -18,7 +18,7 @@ const CartTotal = () => {
   const { cartItems } = useContext(CartContext);
 
   const handleCheckout = () => {
-    if(status=="authenticated"){
+    if(userData.email !== ""){
       if(userData.cart.length>0){
         router.push("/cart/checkout")
       }else{

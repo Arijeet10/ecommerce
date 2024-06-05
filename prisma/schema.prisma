@@ -20,8 +20,8 @@ model EcommerceUser{
   email String @unique
   fullname String
   password String 
-  wishlist EcommerceProductData[] @unique
-  cart EcommerceProduct[] @unique
+  wishlist EcommerceProductData[] 
+  cart EcommerceProduct[] 
   orders Orders[]
 }
 
@@ -48,6 +48,7 @@ type EcommerceProduct{
 }
 
 type Orders{
+  orderID String
   orderData EcommerceProduct[]
   orderDate DateTime @default(now())
 }

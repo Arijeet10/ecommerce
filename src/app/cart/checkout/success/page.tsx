@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import Button from "@/components/ui/Button";
 import Link from "next/link";
@@ -6,16 +6,16 @@ import Link from "next/link";
 
 const CheckoutSuccess = () => {
 
-  let data;
+//   let data;
 
-  if (window && window.sessionStorage) {
-    // do your stuff with sessionStorage
-    data=sessionStorage.getItem('orders')
-}
+//   if (window && window.sessionStorage) {
+//     // do your stuff with sessionStorage
+//     data=sessionStorage.getItem('orders')
+// }
 
-  const {orderData,orderID}=JSON.parse(data||"")
-  console.log("Orders:",orderData)
-  console.log("Order ID:",orderID)
+//   const {orderData,orderID}=JSON.parse(data||"")
+//   console.log("Orders:",orderData)
+//   console.log("Order ID:",orderID)
 
   
 
@@ -24,7 +24,7 @@ const CheckoutSuccess = () => {
       {/* <Toaster /> */}
       <div className="px-4 py-4 w-full h-[100vh] flex items-center justify-center">
         <div className="flex flex-col gap-8">
-          <div className="font-semibold">Order ID: <span className="text-[#3030303] font-medium">{orderID}</span></div>
+          {/* <div className="font-semibold">Order ID: <span className="text-[#3030303] font-medium">{orderID}</span></div>
           <div className=" max-h-[30vh] flex flex-col gap-2 overflow-scroll hide-default-scrollbar">
             {orderData.length>0 && orderData.map((item:any,i:number)=>{
               return(
@@ -43,7 +43,7 @@ const CheckoutSuccess = () => {
               </div>
               )
             })}
-          </div>
+          </div> */}
           <div className="flex flex-col items-center gap-4">
             <div className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-medium">
               Products Shipped

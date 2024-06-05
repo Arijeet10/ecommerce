@@ -135,12 +135,10 @@ export const createOrdersApiCall=async(orderID:number)=>{
       console.log(response)
       return response
     }else{
-      return response.message
+      console.log(response.message)
     }
   } catch (error) {
     console.log(error)
-    const message="Unable to create orders"
-    return message;
   }
 }
 

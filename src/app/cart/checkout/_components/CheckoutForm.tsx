@@ -57,13 +57,8 @@ const CheckoutForm = () => {
         const orderData=response.orders
         const orderID=response.id
         sessionStorage.setItem('orders',JSON.stringify({orderData,orderID}))
-        const orderResponse=await createOrdersApiCall(response.id)
-        const orderDetails=await orderResponse.json()
-        if(orderResponse.ok){
-          toast.success(orderDetails.message)
-        }else{
-          toast.error(orderDetails)
-        }
+        const orderDetails=await createOrdersApiCall(response.id)
+        toast.success(orderDetails.message)
         stripe?.redirectToCheckout({sessionId:response.id})
       }else{
         throw new Error("Failed to perform Stripe Payment")

@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({message:"No order id found"},{status:404})
     }
 
-    const newOrder={orderID,orderData:user.cart,orderDate:new Date()}
+    const newOrder={orderID:orderID,orderData:user.cart,orderDate:new Date()}
     const updatedOrders=[...(user.orders),newOrder]
 
     await prisma.ecommerceUser.update({

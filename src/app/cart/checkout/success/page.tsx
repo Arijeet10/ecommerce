@@ -31,7 +31,7 @@ const CheckoutSuccess = () => {
                 </div>
                 <div className="w-full flex items-center justify-between">
                   <div className="max-w-[250px] overflow-hidden text-ellipsis text-nowrap">x{item.quantity} {item.price_data.product_data.name}</div>
-                  <div>${item.price_data.unit_amount}</div>
+                  <div>${item.price_data.unit_amount/100}</div>
                 </div>
               </div>
               )

@@ -79,6 +79,7 @@ const CheckoutForm = () => {
     if(formData.paymentOption=="bank"){
       handleStripeCheckout()
     }else{
+      toast.error("Please select Payment Options!😡")
       console.log("Billing Details",formData)
     }
 

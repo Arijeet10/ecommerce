@@ -12,7 +12,7 @@ export const getDataFromToken=async(req:NextRequest)=>{
             const token=req.cookies.get('token')?.value || ""
             console.log("Token from cookies:", token);
             if(token){
-                const userData=await jwt.verify(token,process.env.TOKEN_SECRET!) as jwt.JwtPayload
+                const userData= jwt.verify(token,process.env.TOKEN_SECRET!) as jwt.JwtPayload
                 console.log("User data from verified token:", userData);
                 return userData
             }

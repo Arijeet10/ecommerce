@@ -6,7 +6,14 @@ import Link from "next/link";
 
 const CheckoutSuccess = () => {
 
-  const {orderData,orderID}=JSON.parse(sessionStorage.getItem('orders')|| "")
+  let data;
+
+  if (window && window.sessionStorage) {
+    // do your stuff with sessionStorage
+    data=sessionStorage.getItem('orders')
+}
+
+  const {orderData,orderID}=JSON.parse(data||"")
   console.log("Orders:",orderData)
   console.log("Order ID:",orderID)
 
